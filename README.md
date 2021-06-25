@@ -11,14 +11,11 @@ In this test, you are expected to write a small web application to manage a shoe
 3. In the endpoint for generating an order, generate an invoice file (a JSON with the fields of the order and the shoe is enough) and push it to an s3 bucket (If you don't have an AWS account to test, just include the code that performs the put operation).
 4. Suppose that this backend is running in an EC2 instance. Add in the repo a JSON file with the policy that you would add to the EC2 instance role so that it has access to the s3 bucket.
 
-You are recommended to use **Python/Django** along with [**Django REST Framework**](http://www.django-rest-framework.org/) to implement your backend and API layer, but you are free to use a different language/framework/libraries you are comfortable with.
-
 
 ## Frontend implementation
 
 Implement a small frontend application to consume the API you developed above. It should display minimum the list of shoes, and a button to generate an order. You can get creative and add whatever you consider.
 
-You are recommended to use **VueJS** or **ReactJS** but feel free to use whichever framework/library you consider appropiate.
 
 ## Notes and recommendations
 
