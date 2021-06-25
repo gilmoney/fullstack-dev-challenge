@@ -17,12 +17,10 @@ In this test, you are expected to write a small web application to manage a shoe
 Implement a small frontend application to consume the API you developed above. It should display minimum the list of shoes, and a button to generate an order. You can get creative and add whatever you consider.
 
 
-## Notes and recommendations
+## Requirements
 
 * Create a fork of the repo and push there the solution of the challenge.
 * Use python 3.7+.
-* Implement the backend in Django v3+.
-* Implement the frontend using VueJS, ReactJS or AngularJS.
 * Include a requirements.txt file.
 
 ## Bonus
