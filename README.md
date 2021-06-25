@@ -21,6 +21,8 @@ Implement a small frontend application to consume the API you developed above. I
 
 * Create a fork of the repo and push there the solution of the challenge.
 * Use python 3.7+.
+* Implement the backend in Django v3+.
+* Implement the frontend using VueJS, ReactJS or AngularJS.
 * Include a requirements.txt file.
 
 ## Bonus
