@@ -20,6 +20,7 @@ GV: I finished this one and developed it using Python 9, Django Rest Framework, 
 
 Implement a small frontend application to consume the API you developed above. It should display at least the list of shoes, and a button to generate an order. You can get creative and add whatever you consider.
 
+GV - DONE. Using Angular.
 
 ## Requirements
 
@@ -29,7 +30,15 @@ Implement a small frontend application to consume the API you developed above. I
 
 ## Bonus
 * Include a Dockerfile to run the backend.
+
+GV - DONE
+
 * Create an image field for the shoes and display them in the frontend.
+
+GV - DONE
+
 * Instead of a JSON file with the policy, add a YAML/JSON file with a CloudFormation template that we can use to create the policy.
 * Set up the CloudFormation template to create the S3 bucket.
+
+GV - The JSON file, cloudformation_s3_bucket_template_v2.json is checked in the repo
 

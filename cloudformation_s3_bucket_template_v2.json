@@ -1,0 +1,110 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Working with custom resources and S3",
+  "Parameters": {
+    "S3BucketName": {
+      "Type": "String",
+      "Description": "S3 bucket to create.",
+      "AllowedPattern": "[a-zA-Z][a-zA-Z0-9_-]*"
+    },
+    "DirsToCreate": {
+      "Description": "Comma delimited list of directories to create.",
+      "Type": "CommaDelimitedList"
+    }
+  },
+  "Resources": {
+    "SampleS3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": {"Ref":"S3BucketName"}
+      }
+    },
+    "S3CustomResource": {
+      "Type": "Custom::S3CustomResource",
+      "DependsOn":"AWSLambdaExecutionRole",
+      "Properties": {
+        "ServiceToken": {"Fn::GetAtt": ["AWSLambdaFunction","Arn"]},
+        "the_bucket": {"Ref":"SampleS3Bucket"},
+        "dirs_to_create": {"Ref":"DirsToCreate"}
+      }
+    },
+    "AWSLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Description": "Work with S3 Buckets!",
+        "FunctionName": {"Fn::Sub":"${AWS::StackName}-${AWS::Region}-lambda"},
+        "Handler": "index.handler",
+        "Role": {"Fn::GetAtt": ["AWSLambdaExecutionRole","Arn"]},
+        "Timeout": 360,
+        "Runtime": "python3.6",
+        "Code": {
+          "ZipFile": "import boto3\r\ndef handler(event, context):\r\n    # Init ...\r\n    the_event = event['RequestType']\r\n    print(\"Hello, User\")"
+        }
+      }
+    },
+    "AWSLambdaExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "sts:AssumeRole"
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": "arn:aws:logs:*:*:*"
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": {"Fn::Sub": "${AWS::StackName}-${AWS::Region}-AWSLambda-CW"}
+          },
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "s3:PutObject",
+                    "s3:PutObjectAcl",
+                    "s3:GetObject",
+                    "s3:DeleteObject",
+                    "s3:List*"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {"Fn::Sub": "arn:aws:s3:::${SampleS3Bucket}/*"},
+                    {"Fn::Sub": "arn:aws:s3:::${SampleS3Bucket}"}
+                  ]
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": {"Fn::Sub":"${AWS::StackName}-${AWS::Region}-AWSLambda-S3"}
+          }
+        ],
+        "RoleName": {"Fn::Sub":"${AWS::StackName}-${AWS::Region}-AWSLambdaExecutionRole"}
+      }
+    }
+  }
+}
