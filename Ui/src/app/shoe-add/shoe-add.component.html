@@ -1,0 +1,89 @@
+<div class="breadcrumb">
+<a routerLink="/">Home</a>
+<b> > </b>
+Add Shoes
+</div>
+
+<form [formGroup]="shoeForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Add New Shoe</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <input
+            style="display: none"
+            type="file" (change)="onFileChanged($event)"
+            #fileInput>
+          <a (click)="fileInput.click()">
+            <img src="{{posterImage}}" style="width:200px;border:1px solid #ccc; padding:5px;" />
+          </a>
+        </div>
+      </div>
+      <br/><br/>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" formControlName="name">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Brand" formControlName="brand">
+              <mat-option *ngFor="let brand of brands" [value]="brand.name">
+                {{ brand.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="shoeForm.controls['brand'].invalid">
+              Brand is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Price" formControlName="price" type="number">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="example-chip-list" style="width:100%">
+            <mat-label>Available Sizes</mat-label>
+            <mat-chip-list #chipList aria-label="Available Sizes">
+              <mat-chip
+                *ngFor="let fruit of sizes"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(fruit)">
+                {{fruit}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="New size..."
+                #sizesInput
+                [formControl]="sizesCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let fruit of filteredSizes | async" [value]="fruit">
+                {{fruit}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-button type="button" routerLink="/" >Back to List</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

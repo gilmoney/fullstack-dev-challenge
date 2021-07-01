@@ -1,0 +1,43 @@
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+.example-card {
+  max-width: 400px;
+  margin:0 auto;
+}
+
+.example-header-image {
+  background-image: url('/assets/img/logo.png');
+  background-size: cover;
+  height: 80px;
+  width: 80px;
+  margin: -10px;
+}
+
+::ng-deep
+  .mat-form-field-type-mat-select:not(.mat-form-field-disabled)
+  .mat-form-field-flex {
+  background-color: white !important;
+  border-radius: 4px 4px 4px 4px;
+  width: 75px;
+  margin-top:10px;
+}

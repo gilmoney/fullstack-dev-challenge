@@ -1,0 +1,55 @@
+<div class="breadcrumb">
+<a routerLink="/">Home</a>
+<b> > </b>
+Shopping Cart
+</div>
+
+<mat-card style="padding:25px;font-size:medium;text-align:center;background:#fafafa;" *ngIf="items.length == 0">
+  <br/><br/>
+
+  Your cart is empty.
+
+  <br/><br/><br/>
+  <button mat-raised-button color="primary" style="color:white;border: 1px solid white;background:#1976d2;" routerLink="/">Continue Shopping</button>
+</mat-card>
+
+<div *ngIf="items.length > 0">
+<div class="mat-elevation-z8 shopping-cart">
+  <mat-list>
+    <mat-list-item><b>Shopping Cart</b></mat-list-item>
+
+    <mat-divider style="margin-bottom:10px;margin-top:20px;"></mat-divider>
+
+    <mat-list-item class="cart-header">
+      <span class="cart-item-desc">Item</span>
+      <span class="cart-quantity">Qty</span>
+      <span class="cart-price">Price</span>
+    </mat-list-item>
+    <mat-list-item *ngFor="let item of items; index as i" class="cart-list-item">
+      <span class="cart-thumbnail"><img src="{{((item.shoe.poster != null) && (item.shoe.poster.length > 0)) ? item.shoe.poster : '/assets/img/logo.png'}}" alt="Shoes" height="50"></span>
+      <span class="cart-item">
+        {{item.shoe.name}}
+        <i class="subtitle">
+          {{item.shoe.brand}} - Size: {{item.size}}
+        </i>
+      </span>
+      <span class="cart-quantity">1</span>
+      <span class="cart-price">${{item.shoe.price}}</span>
+    </mat-list-item>
+
+    <mat-divider style="margin-bottom:20px;margin-top:20px;"></mat-divider>
+
+    <mat-list-item class="total-row"><span class="cart-field">SubTotal</span><span class="cart-price">${{subtotal.toFixed(2)}}</span></mat-list-item>
+    <mat-list-item class="total-row"><span class="cart-field">Taxes</span><span class="cart-price">${{taxes.toFixed(2)}}</span></mat-list-item>
+    <mat-list-item class="total-row"><span class="cart-field">Shipping</span><span class="cart-price">${{shipping.toFixed(2)}}</span></mat-list-item>
+
+    <mat-divider style="margin-bottom:20px; margin-top:10px"></mat-divider>
+    <mat-list-item style="padding-bottom:20px;"><span class="cart-field"><b>Total</b></span><span class="cart-price"><b>${{total.toFixed(2)}}</b></span></mat-list-item>
+  </mat-list>
+</div>
+<div class="checkout-actions">
+  <button mat-button routerLink="/">Continue Shopping</button>
+  <button mat-stroked-button style="color:white;border: 1px solid white;background:#C22;margin-right:10px;" (click)="clearCart()">CLEAR CART</button>
+  <button mat-stroked-button style="color:white;border: 1px solid white;background:#1976d2;" routerLink="/checkout">CHECKOUT</button>
+</div>
+</div>

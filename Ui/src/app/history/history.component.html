@@ -1,0 +1,36 @@
+<div class="breadcrumb">
+<a routerLink="/">Home</a>
+<b> > </b>
+Order History
+</div>
+
+<div class="mat-elevation-z8 order-history">
+  <mat-list>
+    <mat-list-item><b>Order History</b></mat-list-item>
+
+    <mat-divider style="margin-bottom:10px;margin-top:20px;"></mat-divider>
+
+    <mat-list-item class="cart-header">
+      <span class="cart-thumbnail">Invoice</span>
+      <span class="cart-item">Customer</span>
+      <span class="cart-quantity">Qty</span>
+      <span class="cart-price">Total</span>
+    </mat-list-item>
+    <mat-list-item *ngFor="let item of orders; index as i" class="cart-list-item" routerLink="/order/{{item.id}}">
+      <span class="cart-thumbnail">{{item.id}}</span>
+      <span class="cart-item">
+        {{item.customer}}
+        <i class="subtitle">
+          {{item.address}}
+        </i>
+      </span>
+      <span class="cart-quantity">{{item.items != null ? item.items.length : 0}}</span>
+      <span class="cart-price">${{item.total}}</span>
+    </mat-list-item>
+
+    <mat-divider style="margin-bottom:20px;margin-top:20px;"></mat-divider>
+  </mat-list>
+</div>
+<div style="text-align:right;">
+  <button mat-button routerLink="/">Back to Shopping</button>
+</div>

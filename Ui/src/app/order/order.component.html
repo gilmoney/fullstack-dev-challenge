@@ -1,0 +1,48 @@
+<div class="breadcrumb">
+<a routerLink="/">Home</a>
+<b> > </b>
+<a routerLink="/history">Order History</a>
+<b> > </b>
+Invoice #{{orderId}}
+</div>
+
+<div class="mat-elevation-z8 shopping-cart">
+  <mat-list>
+    <mat-list-item><b>Invoice #{{orderId}}</b></mat-list-item>
+    <mat-list-item>
+      {{order.customer}}<br/>
+      {{order.address}}
+    </mat-list-item>
+
+    <mat-divider style="margin-bottom:10px;margin-top:20px;"></mat-divider>
+
+    <mat-list-item class="cart-header">
+      <span class="cart-item-desc">Item</span>
+      <span class="cart-quantity">Qty</span>
+      <span class="cart-price">Price</span>
+    </mat-list-item>
+    <mat-list-item *ngFor="let item of order.items; index as i" class="cart-list-item">
+      <span class="cart-thumbnail"><img src="{{((item.shoe.poster != null) && (item.shoe.poster.length > 0)) ? item.shoe.poster : '/assets/img/logo.png'}}" alt="Shoes" height="50"></span>
+      <span class="cart-item">
+        {{item.shoe.name}}
+        <i class="subtitle">
+          {{item.shoe.brand}} - Size: {{item.size}}
+        </i>
+      </span>
+      <span class="cart-quantity">1</span>
+      <span class="cart-price">${{item.shoe.price}}</span>
+    </mat-list-item>
+
+    <mat-divider style="margin-bottom:20px;margin-top:20px;"></mat-divider>
+
+    <mat-list-item class="total-row"><span class="cart-field">SubTotal</span><span class="cart-price">${{subtotal.toFixed(2)}}</span></mat-list-item>
+    <mat-list-item class="total-row"><span class="cart-field">Taxes</span><span class="cart-price">${{taxes.toFixed(2)}}</span></mat-list-item>
+    <mat-list-item class="total-row"><span class="cart-field">Shipping</span><span class="cart-price">${{shipping.toFixed(2)}}</span></mat-list-item>
+
+    <mat-divider style="margin-bottom:20px; margin-top:10px"></mat-divider>
+    <mat-list-item style="padding-bottom:20px;"><span class="cart-field"><b>Total</b></span><span class="cart-price"><b>${{total.toFixed(2)}}</b></span></mat-list-item>
+  </mat-list>
+</div>
+<div class="checkout-actions" style="text-align:right;margin-top:20px;">
+  <button mat-button routerLink="/history">Back to Orders</button>
+</div>
